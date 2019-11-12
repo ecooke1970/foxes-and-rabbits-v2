@@ -117,4 +117,37 @@ public abstract class Animal
     {
         age++;
     }
+    
+    /**
+     * Return the breeding age of this animal.
+     * @return The breeding age of this animal.
+     */
+    abstract protected int getBreedingAge();
+    
+    /**
+     * An animal can breed if it has reached its breeding age.
+     * @return boolean - Can this animal breed?
+     */
+    protected boolean canBreed()
+    {
+        return age >= getBreedingAge();
+    }
+    
+    /**
+     * Increase the age of this animal.  This could result in the animals death.
+     */
+    protected void incrementAge()
+    {
+        increaseAge();
+        if(age > getMaxAge())
+        {
+            setDead();
+        }
+    }
+    
+    /**
+     * Get this animals max age. This could result in its death.
+     * @return int - This animal's max age.
+     */
+    abstract protected int getMaxAge();
 }
