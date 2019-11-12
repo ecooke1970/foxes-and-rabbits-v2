@@ -3,19 +3,18 @@ import java.util.Iterator;
 import java.util.Random;
 
 /**
- * A simple model of a fox.
- * Foxes age, move, eat rabbits, and die.
- * 
- * @author David J. Barnes and Michael Kölling
- * @version 2016.02.29 (2)
+ * A simple model of a coyote.
+ *
+ * @author Erik Cooke
+ * @version 2019.11.12
  */
-public class Fox extends Animal
+public class Coyote extends Animal
 {
-    // Characteristics shared by all foxes (class variables).
+    // Characteristics shared by all coyotes (class variables).
     
-    // The age at which a fox can start to breed.
+    // The age at which a coyote can start to breed.
     private static final int BREEDING_AGE = 15;
-    // The age to which a fox can live.
+    // The age to which a coyote can live.
     private static final int MAX_AGE = 150;
     // The likelihood of a fox breeding.
     private static final double BREEDING_PROBABILITY = 0.08;
@@ -23,49 +22,47 @@ public class Fox extends Animal
     private static final int MAX_LITTER_SIZE = 2;
     // The food value of a single rabbit. In effect, this is the
     // number of steps a fox can go before it has to eat again.
-    private static final int RABBIT_FOOD_VALUE = 9;
+    private static final int FOX_FOOD_VALUE = 7;
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
     
-    // Individual characteristics (instance fields).
-
-    // The fox's food level, which is increased by eating rabbits.
+    // The coyote's food level, which is increased by eating foxes.
     private int foodLevel;
 
     /**
-     * Create a fox. A fox can be created as a new born (age zero
+     * Create a coyote. A coyote can be created as a new born (age zero
      * and not hungry) or with a random age and food level.
      * 
-     * @param randomAge If true, the fox will have random age and hunger level.
-     * @param field The field currently occupied.
-     * @param location The location within the field.
+     * @param randomAge - If true, the coyote will have a random age and hunger level.
+     * @param field - The field currently occupied.
+     * @param location - The location within the field.
      */
-    public Fox(boolean randomAge, Field field, Location location)
+    public Coyote(boolean randomAge, Field field, Location location)
     {
         super(field, location);
         if(randomAge) {
             setAge(rand.nextInt(MAX_AGE));
-            foodLevel = rand.nextInt(RABBIT_FOOD_VALUE);
+            foodLevel = rand.nextInt(FOX_FOOD_VALUE);
         }
         else {
             setAge(0);
-            foodLevel = RABBIT_FOOD_VALUE;
+            foodLevel = FOX_FOOD_VALUE;
         }
     }
-    
+
     /**
-     * This is what the fox does most of the time: it hunts for
-     * rabbits. In the process, it might breed, die of hunger,
+     * This is what the coyote does most of the time: it hunts for
+     * foxes. In the process, it might breed, die of hunger,
      * or die of old age.
      * @param field The field currently occupied.
-     * @param newFoxes A list to return newly born foxes.
+     * @param newCoyotes A list to return newly born foxes.
      */
-    public void act(List<Animal> newFoxes)
+    public void act(List<Animal> newCoyotes)
     {
         incrementAge();
         incrementHunger();
         if(isAlive()) {
-            giveBirth(newFoxes);            
+            giveBirth(newCoyotes);            
             // Move towards a source of food if found.
             Location newLocation = findFood();
             if(newLocation == null) { 
@@ -84,7 +81,7 @@ public class Fox extends Animal
     }
     
     /**
-     * Make this fox more hungry. This could result in the fox's death.
+     * Make this coyote more hungry. This could result in the coyote's death.
      */
     private void incrementHunger()
     {
@@ -95,8 +92,8 @@ public class Fox extends Animal
     }
     
     /**
-     * Look for rabbits adjacent to the current location.
-     * Only the first live rabbit is eaten.
+     * Look for foxes adjacent to the current location.
+     * Only the first live fox is eaten.
      * @return Where food was found, or null if it wasn't.
      */
     private Location findFood()
@@ -107,11 +104,12 @@ public class Fox extends Animal
         while(it.hasNext()) {
             Location where = it.next();
             Object animal = field.getObjectAt(where);
-            if(animal instanceof Rabbit) {
-                Rabbit rabbit = (Rabbit) animal;
-                if(rabbit.isAlive()) { 
-                    rabbit.setDead();
-                    foodLevel = RABBIT_FOOD_VALUE;
+            if(animal instanceof Fox) {
+                Fox fox = (Fox) animal;
+                //Rabbit rabbit = (Rabbit) animal;
+                if(fox.isAlive()) { 
+                    fox.setDead();
+                    foodLevel = FOX_FOOD_VALUE;
                     return where;
                 }
             }
@@ -120,27 +118,27 @@ public class Fox extends Animal
     }
     
     /**
-     * Check whether or not this fox is to give birth at this step.
+     * Check whether or not this coyote is to give birth at this step.
      * New births will be made into free adjacent locations.
-     * @param newFoxes A list to return newly born foxes.
+     * @param newCoyotes A list to return newly born coyotes.
      */
-    private void giveBirth(List<Animal> newFoxes)
+    private void giveBirth(List<Animal> newCoyotes)
     {
-        // New foxes are born into adjacent locations.
+        // New coyotes are born into adjacent locations.
         // Get a list of adjacent free locations.
         Field field = getField();
         List<Location> free = field.getFreeAdjacentLocations(getLocation());
         int births = breed();
         for(int b = 0; b < births && free.size() > 0; b++) {
             Location loc = free.remove(0);
-            Fox young = new Fox(false, field, loc);
-            newFoxes.add(young);
+            Coyote young = new Coyote(false, field, loc);
+            newCoyotes.add(young);
         }
     }
-
+    
     /**
-     * Returns the foxes breeding age.
-     * @return int -  the foxes breeding age.
+     * Returns the coyotes breeding age.
+     * @return int -  the coyotes breeding age.
      */
     public int getBreedingAge()
     {
@@ -148,8 +146,8 @@ public class Fox extends Animal
     }
     
     /**
-     * Returns the foxes max age.
-     * @return int -  the foxes max age.
+     * Returns the coyotes max age.
+     * @return int -  the coyotes max age.
      */
     public int getMaxAge()
     {
@@ -157,7 +155,7 @@ public class Fox extends Animal
     }
     
     /**
-     * Returns the foxes breeding probability.
+     * Returns the coyotes breeding probability.
      * @return double - breeding probability.
      */
     public double getBreedingProbability()
@@ -166,7 +164,7 @@ public class Fox extends Animal
     }
     
     /**
-     * Returns the foxes max litter size.
+     * Returns the coyotes max litter size.
      * @return int - max litter size.
      */
     public int getMaxLitterSize()
