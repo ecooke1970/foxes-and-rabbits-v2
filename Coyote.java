@@ -21,8 +21,11 @@ public class Coyote extends Animal
     // The maximum number of births.
     private static final int MAX_LITTER_SIZE = 2;
     // The food value of a single rabbit. In effect, this is the
-    // number of steps a fox can go before it has to eat again.
-    private static final int FOX_FOOD_VALUE = 7;
+    // number of steps a coyote can go before it has to eat again.
+    private static final int RABBIT_FOOD_VALUE = 6;
+    // The food value of a single fox. In effect, this is the
+    // number of steps a coyote can go before it has to eat again.
+    private static final int FOX_FOOD_VALUE = 6;
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
     
@@ -52,7 +55,7 @@ public class Coyote extends Animal
 
     /**
      * This is what the coyote does most of the time: it hunts for
-     * foxes. In the process, it might breed, die of hunger,
+     * foxes and rabbits. In the process, it might breed, die of hunger,
      * or die of old age.
      * @param field The field currently occupied.
      * @param newCoyotes A list to return newly born foxes.
@@ -106,10 +109,17 @@ public class Coyote extends Animal
             Object animal = field.getObjectAt(where);
             if(animal instanceof Fox) {
                 Fox fox = (Fox) animal;
-                //Rabbit rabbit = (Rabbit) animal;
                 if(fox.isAlive()) { 
                     fox.setDead();
                     foodLevel = FOX_FOOD_VALUE;
+                    return where;
+                }
+            }
+            else if(animal instanceof Rabbit) {
+                Rabbit rabbit = (Rabbit) animal;
+                if(rabbit.isAlive()) { 
+                    rabbit.setDead();
+                    foodLevel = RABBIT_FOOD_VALUE;
                     return where;
                 }
             }

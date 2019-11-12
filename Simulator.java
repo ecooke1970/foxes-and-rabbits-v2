@@ -23,7 +23,7 @@ public class Simulator
     // The probability that a rabbit will be created in any given grid position.
     private static final double RABBIT_CREATION_PROBABILITY = 0.08;
     // The probability that a coyote will be created in any given grid position.
-    private static final double COYOTE_CREATION_PROBABILITY = 0.02;
+    private static final double COYOTE_CREATION_PROBABILITY = 0.01;
 
     // List of animals in the field.
     private List<Animal> animals;
