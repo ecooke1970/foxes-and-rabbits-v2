@@ -83,17 +83,6 @@ public class Fox extends Animal
             }
         }
     }
-
-    // /**
-     // * Increase the age. This could result in the fox's death.
-     // */
-    // private void incrementAge()
-    // {
-        // increaseAge();
-        // if(getAge() > MAX_AGE) {
-            // setDead();
-        // }
-    // }
     
     /**
      * Make this fox more hungry. This could result in the fox's death.
@@ -150,19 +139,19 @@ public class Fox extends Animal
         }
     }
         
-    /**
-     * Generate a number representing the number of births,
-     * if it can breed.
-     * @return The number of births (may be zero).
-     */
-    private int breed()
-    {
-        int births = 0;
-        if(canBreed() && rand.nextDouble() <= BREEDING_PROBABILITY) {
-            births = rand.nextInt(MAX_LITTER_SIZE) + 1;
-        }
-        return births;
-    }
+    // /**
+     // * Generate a number representing the number of births,
+     // * if it can breed.
+     // * @return The number of births (may be zero).
+     // */
+    // private int breed()
+    // {
+        // int births = 0;
+        // if(canBreed() && rand.nextDouble() <= BREEDING_PROBABILITY) {
+            // births = rand.nextInt(MAX_LITTER_SIZE) + 1;
+        // }
+        // return births;
+    // }
 
     /**
      * Returns the foxes breeding age.
@@ -180,5 +169,23 @@ public class Fox extends Animal
     public int getMaxAge()
     {
         return MAX_AGE;
+    }
+    
+    /**
+     * Returns the foxes breeding probability.
+     * @return double - breeding probability.
+     */
+    public double getBreedingProbability()
+    {
+        return BREEDING_PROBABILITY;
+    }
+    
+    /**
+     * Returns the foxes max litter size.
+     * @return int - max litter size.
+     */
+    public int getMaxLitterSize()
+    {
+        return MAX_LITTER_SIZE;
     }
 }
