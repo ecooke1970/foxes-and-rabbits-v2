@@ -8,6 +8,11 @@ import java.awt.Color;
  * A simple predator-prey simulator, based on a rectangular field
  * containing rabbits and foxes.
  * 
+ * Added coyotes to simulation.  Coyotes eat both rabbits and foxes.
+ * 
+ * @author Erik Cooke
+ * @version 2019.11.16
+ * 
  * @author David J. Barnes and Michael Kölling
  * @version 2016.02.29 (2)
  */

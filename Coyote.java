@@ -4,6 +4,7 @@ import java.util.Random;
 
 /**
  * A simple model of a coyote.
+ * Coyotes age, move, eat rabbits and foxes, and die.
  *
  * @author Erik Cooke
  * @version 2019.11.12
@@ -15,7 +16,7 @@ public class Coyote extends Animal
     // The age at which a coyote can start to breed.
     private static final int BREEDING_AGE = 15;
     // The age to which a coyote can live.
-    private static final int MAX_AGE = 150;
+    private static final int MAX_AGE = 130;
     // The likelihood of a fox breeding.
     private static final double BREEDING_PROBABILITY = 0.08;
     // The maximum number of births.
